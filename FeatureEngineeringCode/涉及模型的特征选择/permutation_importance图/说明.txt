@@ -1,0 +1,5 @@
+对应程序E:\python312\python.exe E:\2大学项目\选择合适的特征\SHAP选特征\1.1permu_.py 
+使用置换重要性：
+feature importance越大，特征越有用！
+
+图二是以真阴率为指标
