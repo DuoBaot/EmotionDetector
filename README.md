@@ -1,30 +1,64 @@
-# Emotion_Project：
-###### SensorData:
-Serial port data reading, file generation, code for subsequent steps
-For specific operation steps, see the Readme file in the folder
+# EmotionDetector：基于可穿戴设备与机器学习的情绪测量
 
-###### Web:
-Web display related code
-Flask framework implemented in python
-Code synchronization repository between teams
+## 项目说明：
+- 1、针对传统情绪测量依赖高成本专业设备的痛点，基于Arduino搭建便携式平台，实时采集皮肤电与脉搏波多模态生理信号，并开发 Web 前端交互式页面实现情绪分类结果可视化；
 
-##### NewWeb
-Web display related code
-Different from the Web, the web page uses new model input features and new model parameters, with higher F1-Score
+- 2、针对可穿戴设备由于硬件限制、缺乏轻量化识别方法的问题，结合效价-唤醒度二维情绪模型，采用高斯径向基SVM模型实现正负性二分类，经SHAP值等特征工程从50个原始特征中提取至5个核心特征，使模型在DEAP数据集训练集上准确率从50%左右提升至89.58%。
+
+## 核心功能
+### 1. 团队基础功能
+- 串口数据采集：支持Arduino硬件采集皮肤电、脉搏波多模态生理信号；
+- Web可视化展示：基于Flask框架实现情绪分类结果实时展示（含初代/优化版双版本）；
+- 数据预处理：对生理信号进行预处理以方便后续特征提取。
+
+### 2. 第一负责人核心贡献
+- 轻量化特征工程：通过互信息法+SHAP值从50个原始生理特征中筛选5个核心特征，冗余度降低90%；
+- 模型性能优化：采用高斯径向基SVM模型，训练集准确率从50%提升至89.58%，优于文献单信号识别效果；
+- 全流程自动化：提供「一条龙运行脚本」，无需分步操作，一键完成数据处理→模型训练→结果输出。
+
+### 3.目录结构
+``` plaintext
+EmotionDetector/
+├── SensorData/        # 串口数据采集模块（Arduino交互）
+├── Web/               # 初代Web可视化页面（Flask）
+├── NewWeb/            # 优化版Web可视化页面
+├── ModelResource/     # 模型相关资源
+│   ├── FinalCode/     # 一条龙运行核心代码
+│   │   └── FinalCode/6.run_all.py # 全流程自动化脚本
+│   └── DataAfterPlay/         # 运行过程中生成的数据
+├── FeatureEngineeringCode/    # 特征工程代码   
+├── Data/              # 数据集（DEAP）及预处理后数据
+└── README.md          # 项目说明
+```
+
+## 快速使用指南
+### 1. 环境依赖
+- Python 3.12+：`numpy==1.21.0`、`scipy==1.7.1`、`shap==0.41.0`、`scikit-learn==1.0.2`、
+- 可选：MATLAB R2020b+（串口数据预处理辅助）
 
 
----
+### 2. 一条龙运行（推荐）
+```bash
+# 克隆仓库
+git clone https://github.com/DuoBaot/EmotionDetector.git
 
-### 可穿戴情绪测量项目：
-###### SensorData：
-串口数据读取，生成文件，用于后续步骤的代码
-具体操作步骤详情见文件夹内Readme文件
+cd EmotionDetector
 
-###### Web：
-web展示相关代码
-python实现flask框架
-团队间代码同步仓库
+# 安装依赖、修改路径，一键运行全流程
+python ModelResource/FinalCode/run_all.py
 
-##### NewWeb
-web展示相关代码
-与Web不同的是，网页采用的是新的模型输入特征和新的模型参数，拥有更高的F1-Score
+```
+
+## 致谢
+- 本项目的 SensorData、Web、NewWeb 串口与网页模块基于 Rain0832/Emotion_Project 构建，特此感谢项目组全体成员的协作；
+- 感谢电子科技大学丁晓蓉老师以及各位学长学姐的指导与支持
+- 来源：电子科技大学一年级新生课外实践项目
+
+## 免责声明
+- 本仓库为电子科技大学一年级新生课外实践项目（2024/1-2024/9）归档版本，核心特征工程与自动化脚本为独立开发成果；
+- 项目展示视频、代码仅供学术交流使用，禁止未经授权的商业应用，商业使用需联系作者获得授权；
+- 数据集使用需遵循 DEAP 数据集的官方授权协议。
+
+## 参考文献
+赵昱音.面向可穿戴式设备的情绪识别研究[D].哈尔滨工业大学,2021.
+DOI:10.27061/d.cnki.ghgdu.2021.003358.
