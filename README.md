@@ -1,5 +1,8 @@
 # EmotionDetector：基于可穿戴设备与机器学习的情绪测量
 
+## DEMO
+https://github.com/user-attachments/assets/6f471a44-96ab-40b2-8ff1-79a6cc32b232
+
 ## 项目说明：
 - 1、针对传统情绪测量依赖高成本专业设备的痛点，基于Arduino搭建便携式平台，实时采集皮肤电与脉搏波多模态生理信号，并开发 Web 前端交互式页面实现情绪分类结果可视化；
 
